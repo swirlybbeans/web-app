@@ -7,23 +7,78 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Web App</title>
+        <title>Bianca's To Do List</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="style.css">
           <!-- MOBILE WEB APP, ADD THIS TO <head>..</head> OF index.html -->
-       <link rel="icon" type="image/png" href="favicon.png?v=2" />
-       <link rel="apple-touch-icon" href="favicon.png?v=2">
+       <link rel="icon" type="image/png" href="favicon.png?v=3" />
+       <link rel="apple-touch-icon" href="favicon.png?v=3">
        <meta name="apple-mobile-web-app-title" content="">
        <meta name="apple-mobile-web-app-capable" content="yes">
        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+       <link
+       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap"
+       rel="stylesheet"
+     />
 
     </head>
     <body>
+        <div class="container">
+            <h2 id="header">To Do List</h2>
+            <input
+              type="text"
+              name="task"
+              placeholder="Type in a task and it will appear here!"
+            />
+            <button id="add-btn">ADD</button>
+            <ul id="taskList"></ul>
+          </div>
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
         
         <script src="" async defer></script>
+        <script>
+            const tasks = [];
+            const unordered_list = document.getElementById("taskList");
+            const input = document.querySelector("input");
+            const button = document.getElementById("add-btn");
+      
+            function createDeleteButton(index) {
+              const deleteButton = document.createElement("button");
+              deleteButton.textContent = "Delete";
+              deleteButton.classList.add("delete-button");
+              deleteButton.addEventListener("click", () => {
+                tasks.splice(index, 1);
+                updateList();
+              });
+              return deleteButton;
+            }
+      
+            function updateList() {
+              unordered_list.innerHTML = "";
+              for (let i = 0; i < tasks.length; i++) {
+                const li = document.createElement("li");
+                li.innerHTML = tasks[i];
+      
+                const deleteButton = createDeleteButton(i);
+                li.appendChild(deleteButton);
+      
+                unordered_list.appendChild(li);
+              }
+            }
+      
+            button.addEventListener("click", () => {
+              const task = input.value.trim();
+              if (task !== "") {
+                tasks.push(task);
+                input.value = "";
+                updateList();
+              }
+            });
+      
+            updateList();
+          </script>
     </body>
 </html>
