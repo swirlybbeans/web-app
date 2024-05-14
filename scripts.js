@@ -46,6 +46,20 @@ loader.style.display = "none"
 localStorage.setItem("lastname", "Smith");
 localStorage.getItem("lastname");
 
+// Function to save data
+function saveData() {
+  var textareaValue = document.getElementById('myTextarea').value;
+  localStorage.setItem('savedData', textareaValue);
+}
+
+// Function to load saved data
+window.onload = function() {
+  var savedData = localStorage.getItem('savedData');
+  if (savedData !== null) {
+      document.getElementById('myTextarea').value = savedData;
+      console.log("Data loaded from localStorage:", savedData);
+  }
+}
 
 /*const tasks = [];
       const unordered_list = document.getElementById("taskList");
